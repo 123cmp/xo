@@ -1,0 +1,37 @@
+.table {
+  width: 680px;
+  align-self: center;
+}
+
+.row {
+
+}
+
+.cell {
+  width: 40px;
+  height: 40px;
+  border: 1px dashed blue;
+  border-bottom: none;
+  border-left: none;
+}
+
+.cell.left {
+  border-left: 1px dashed blue;
+}
+
+.cell.bottom {
+  border-bottom: 1px dashed blue;
+}
+
+.cell.marked {
+  background-color: lightgreen;
+}
+
+.x-cell {
+  color: blue;
+}
+
+.o-cell {
+  color: red;
+  font-weight: bold;
+}
