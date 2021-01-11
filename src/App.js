@@ -36,7 +36,7 @@ function App() {
         }
         setFieldModel(result);
         setStep(step + 1)
-    }, 5);
+    }, 1);
 
     return (
         <div className="App">

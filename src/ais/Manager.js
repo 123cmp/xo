@@ -1,20 +1,22 @@
 import ExamplePlayer from "./ExamplePlayer";
+import OxysPlayer from "./OxysPlayer";
 
 const symbols = ["X", "O"];
 
 export default class Manager {
     constructor(field) {
-        this.player1Symbol = symbols[Math.floor(Math.random() * 2)]
-        this.player2Symbol = symbols.find(symbol => symbol !== this.player1Symbol)
+        this.player1Symbol = symbols[Math.floor(Math.random() * 2)];
+        this.player2Symbol = symbols.find(symbol => symbol !== this.player1Symbol);
         this.field = field;
-        this.current = Math.floor(Math.random() * 2 ) + 1
+        this.current = Math.floor(Math.random() * 2 ) + 1;
 
-        this.player1 = new ExamplePlayer(this.player1Symbol);
-        this.player2 = new ExamplePlayer(this.player2Symbol);
+        this.player1 = new OxysPlayer(this.player1Symbol);
+        this.player2 = new OxysPlayer(this.player2Symbol);
     }
 
     step() {
         let point, symbol;
+        let prev = this.current;
         if (this.current === 1) {
             symbol = this.player1Symbol;
             point = this.player1.next(this.field);
@@ -36,7 +38,7 @@ export default class Manager {
         this.field[point[0]][point[1]] = symbol;
         const streak = this.testWin(symbol)
         if (streak) {
-            alert(`Player ${this.current} (${symbol}) wins`)
+            alert(`Player ${prev} (${symbol}) wins`)
             return {
                 win: true,
                 streak
@@ -56,9 +58,9 @@ export default class Manager {
 
     testWin(symbol) {
         return this.testHorizontal(symbol)
-        || this.testVertical(symbol)
-        || this.testDiagonalLeftToRight(symbol)
-        || this.testDiagonalRightToLeft(symbol)
+        // || this.testVertical(symbol)
+        // || this.testDiagonalLeftToRight(symbol)
+        // || this.testDiagonalRightToLeft(symbol)
     }
 
     testDraw() {
