@@ -13,6 +13,7 @@ let interval = null;
 function App() {
     let fieldRows = [];
     const fieldRow = [];
+    const humanMode = true;
 
     fieldRows.length = FIELD_HEIGHT;
     fieldRow.length = FILED_WIDTH;
@@ -27,33 +28,58 @@ function App() {
     const [player2Time, setPlayer2Time] = useState(0);
 
     if(!manager) {
-        manager = new Manager(fieldModel);
+        manager = new Manager(fieldModel, humanMode);
     }
 
-    clearInterval(interval);
-    interval = setInterval(() => {
-        const result = manager.step()
+    function startGame() {
+        clearInterval(interval);
+        interval = setInterval(() => {
+            const result = manager.step()
+            if (!result) {
+                return clearInterval(interval);
+            }
+            if (result.win) {
+                setStreak(result.streak);
+                return clearInterval(interval);
+            }
+            setFieldModel(result);
+            setStep(step + 1);
+            setPlayer1Time(manager.player1Time);
+            setPlayer2Time(manager.player2Time);
+        }, 500);
+    }
+
+    startGame();
+
+    const onCellClick = (i, j) => {
+        if (manager.current !== 2) {
+            return
+        }
+        const result = manager.humanInput([i, j]);
+        if (!result) {
+            return
+        }
         if (result.win) {
             setStreak(result.streak);
-           return clearInterval(interval);
+            return clearInterval(interval);
         }
         setFieldModel(result);
         setStep(step + 1);
-        setPlayer1Time(manager.player1Time);
-        setPlayer2Time(manager.player2Time);
-    }, 500);
+    }
 
     return (
         <div className="App">
             <div>Step: {step}</div>
             <div className="game-wrapper">
                 <PlayerInfo name={manager.player1Name} time={player1Time} symbol={manager.player1Symbol} />
-                <Field fieldModel={fieldModel} streak={streak}/>
+                <Field onCellClick={onCellClick} fieldModel={fieldModel} streak={streak}/>
                 <PlayerInfo name={manager.player2Name} time={player2Time} symbol={manager.player2Symbol} />
             </div>
 
         </div>
     );
 }
+
+
 
 export default App;
