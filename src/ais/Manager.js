@@ -1,4 +1,5 @@
 import ExamplePlayer from "./ExamplePlayer";
+import OxysPlayer from "./OxysPlayer";
 
 const symbols = ["X", "O"];
 
@@ -10,12 +11,12 @@ export default class Manager {
         this.current = Math.floor(Math.random() * 2 ) + 1
 
         this.player1Name = "Первый Бот";
-        this.player2Name = "Второй Бот";
+        this.player2Name = "Человек";
 
         this.player1Time = 0;
         this.player2Time = 0;
 
-        this.player1 = new ExamplePlayer(this.player1Symbol);
+        this.player1 = new OxysPlayer(this.player1Symbol);
         this.player2 = new ExamplePlayer(this.player2Symbol);
         this.humanMode = humanMode;
     }
@@ -155,19 +156,20 @@ export default class Manager {
         let streak = [];
         let win = false;
 
-        for (let k = 0; k < 15 * 2; k++) {
-            for (let j = 0; j <= k; j++) {
-                let i = k - j;
-                if (i < 15 && j < 15) {
-                    if(this.field[j][i] === symbol) {
-                        streak.push([j, i]);
-                    } else {
-                        streak = []
-                    }
+        for (let j = -15; j < 15; j++) {
+            for (let i = 0; i < 15; i++) {
+                const k = i + j;
+                if (k > 14 || k < 0 || i < 0 || i > 14) {
+                    continue;
+                }
+                if(this.field[k][i] === symbol) {
+                    streak.push([k, i]);
+                } else {
+                    streak = []
+                }
 
-                    if(streak.length > 4) {
-                        win = streak;
-                    }
+                if(streak.length > 4) {
+                    win = streak;
                 }
             }
             streak = [];
@@ -180,19 +182,21 @@ export default class Manager {
         let streak = [];
         let win = false;
 
-        for (let k = 0; k >= -15 * 2; k--) {
-            for (let j = 0; j < 15 - k; j++) {
-                let i = k + j;
-                if (i < 15 && j < 15 && i >= 0 && j >= 0) {
-                    if(this.field[j][i] === symbol) {
-                        streak.push([j, i]);
-                    } else {
-                        streak = []
-                    }
+        for (let j = -15; j < 15; j++) {
+            for (let i = 14; i >= 0; i--) {
+                const k = i + j;
+                const x = 14 - i;
+                if (k > 14 || k < 0 || x < 0 || x > 14) {
+                    continue;
+                }
+                if(this.field[k][x] === symbol) {
+                    streak.push([k, x]);
+                } else {
+                    streak = []
+                }
 
-                    if(streak.length > 4) {
-                        win = streak;
-                    }
+                if(streak.length > 4) {
+                    win = streak;
                 }
             }
             streak = [];

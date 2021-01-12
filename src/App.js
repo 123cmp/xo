@@ -23,6 +23,7 @@ function App() {
     )
     const [fieldModel, setFieldModel] = useState(fieldRows);
     const [step, setStep] = useState(1);
+    const [current, setCurrent] = useState(1);
     const [streak, setStreak] = useState(null);
     const [player1Time, setPlayer1Time] = useState(0);
     const [player2Time, setPlayer2Time] = useState(0);
@@ -44,6 +45,7 @@ function App() {
             }
             setFieldModel(result);
             setStep(step + 1);
+            setCurrent(manager.current);
             setPlayer1Time(manager.player1Time);
             setPlayer2Time(manager.player2Time);
         }, 500);
@@ -65,15 +67,16 @@ function App() {
         }
         setFieldModel(result);
         setStep(step + 1);
+        setCurrent(manager.current);
     }
 
     return (
         <div className="App">
             <div>Step: {step}</div>
             <div className="game-wrapper">
-                <PlayerInfo name={manager.player1Name} time={player1Time} symbol={manager.player1Symbol} />
+                <PlayerInfo isCurrent={current === 1} name={manager.player1Name} time={player1Time} symbol={manager.player1Symbol} />
                 <Field onCellClick={onCellClick} fieldModel={fieldModel} streak={streak}/>
-                <PlayerInfo name={manager.player2Name} time={player2Time} symbol={manager.player2Symbol} />
+                <PlayerInfo isCurrent={current === 2} name={manager.player2Name} time={player2Time} symbol={manager.player2Symbol} />
             </div>
 
         </div>
