@@ -87,6 +87,10 @@ export default class Manager {
     }
 
     humanInput(point) {
+        if(this.field[point[0]][point[1]]) {
+            return this.field
+        }
+
         const res = this.calculations(point, 2, this.player2Symbol);
         this.current = 1;
         return res ? res : this.field
