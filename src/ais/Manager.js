@@ -1,5 +1,4 @@
 import ExamplePlayer from "./ExamplePlayer";
-import OxysPlayer from "./OxysPlayer";
 
 const symbols = ["X", "O"];
 
@@ -16,7 +15,7 @@ export default class Manager {
         this.player1Time = 0;
         this.player2Time = 0;
 
-        this.player1 = new OxysPlayer(this.player1Symbol);
+        this.player1 = new ExamplePlayer(this.player1Symbol);
         this.player2 = new ExamplePlayer(this.player2Symbol);
         this.humanMode = humanMode;
     }
