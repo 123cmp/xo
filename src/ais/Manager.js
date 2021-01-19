@@ -1,5 +1,6 @@
 import ExamplePlayer from "./ExamplePlayer";
 import OxysPlayer from "./OxysPlayer";
+import ZrxPlayer from "./ZrxPlayer";
 
 const symbols = ["X", "O"];
 
@@ -10,14 +11,14 @@ export default class Manager {
         this.field = field;
         this.current = Math.floor(Math.random() * 2 ) + 1
 
-        this.player1Name = "Первый Бот";
-        this.player2Name = "Человек";
+        this.player1Name = "Oxy";
+        this.player2Name = "Zrx";
 
         this.player1Time = 0;
         this.player2Time = 0;
 
         this.player1 = new OxysPlayer(this.player1Symbol);
-        this.player2 = new ExamplePlayer(this.player2Symbol);
+        this.player2 = new ZrxPlayer(this.player2Symbol);
         this.humanMode = humanMode;
     }
 

@@ -13,7 +13,7 @@ let interval = null;
 function App() {
     let fieldRows = [];
     const fieldRow = [];
-    const humanMode = true;
+    const humanMode = false;
 
     fieldRows.length = FIELD_HEIGHT;
     fieldRow.length = FILED_WIDTH;
@@ -48,7 +48,7 @@ function App() {
             setCurrent(manager.current);
             setPlayer1Time(manager.player1Time);
             setPlayer2Time(manager.player2Time);
-        }, 500);
+        }, 2000);
     }
 
     startGame();
